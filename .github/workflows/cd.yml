@@ -15,16 +15,6 @@ jobs:
           chmod 600 ~/.ssh/id_rsa
           ssh-keyscan -H ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
 
-      - name: Deploy to Server
+      - name: Run Deploy Script on Server
         run: |
-          ssh -i ~/.ssh/id_rsa \
-              -o StrictHostKeyChecking=no \
-              ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }} \
-              "cd /home/${{ secrets.SSH_USERNAME }}/hng12-pruddy && \
-              git pull origin main && \
-              python3 -m venv venv && \
-              source venv/bin/activate && \
-              pip install --upgrade pip && \
-              pip install -r requirements.txt && \
-              sudo systemctl restart fastapi-app && \
-              sudo systemctl reload nginx"
+          ssh -i ~/.ssh/id_rsa ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }} "bash /home/${{ secrets.SSH_USERNAME }}/hng12-pruddy/scripts/deploy.sh"
