@@ -17,4 +17,4 @@ jobs:
 
       - name: Run Deploy Script on Server
         run: |
-          ssh -i ~/.ssh/id_rsa ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }} "bash /home/${{ secrets.SSH_USERNAME }}/hng12-pruddy/scripts/deploy.sh"
+          ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }} "bash /home/${{ secrets.SSH_USERNAME }}/hng12-pruddy/scripts/deploy.sh"
